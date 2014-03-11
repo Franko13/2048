@@ -19,7 +19,10 @@ describe('GameManager - ', function () {
 
 		it('should add random tiles', function () {
 			game_manager.setup();
-			expect(Grid.prototype.insertTile.calls.length).toBe(game_manager.startTiles);
+
+			// Grid.insertTile should be called twice
+			expect(Grid.prototype.insertTile.calls.length)
+				.toBe(game_manager.startTiles);
 		});
 	});
 
@@ -27,12 +30,14 @@ describe('GameManager - ', function () {
 		var tiles = undefined;
 
 		beforeEach(function () {
+			// availables tiles
 			tiles = [];
 			game_manager.grid.eachCell( function (x,y,tile) {
 				if(tile)
 					tiles.push(tile);
 			});
 
+			// we manually move tiles to top-left and bottom-right
 			game_manager.grid.removeTile(tiles[0]);
 			game_manager.grid.removeTile(tiles[1]);
 
