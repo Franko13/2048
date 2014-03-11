@@ -23,11 +23,15 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
     self.updateScore(metadata.score);
 
     if (metadata.over) self.message(false); // You lose
-    if (metadata.won) self.message(true); // You win!
+    if (metadata.won && !metadata.keepPlaying) self.message(true); // You win!
   });
 };
 
 HTMLActuator.prototype.restart = function () {
+  this.clearMessage();
+};
+
+HTMLActuator.prototype.keepPlaying = function () {
   this.clearMessage();
 };
 

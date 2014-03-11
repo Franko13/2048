@@ -56,6 +56,9 @@ KeyboardInputManager.prototype.listen = function () {
   var retry = document.getElementsByClassName("retry-button")[0];
   retry.addEventListener("click", this.restart.bind(this));
 
+  var keepPlaying = document.getElementsByClassName("keep-playing-button")[0];
+  keepPlaying.addEventListener("click", this.keepPlaying.bind(this));
+
   // Listen to swipe events
   var gestures = [Hammer.DIRECTION_UP, Hammer.DIRECTION_RIGHT,
                   Hammer.DIRECTION_DOWN, Hammer.DIRECTION_LEFT];
@@ -77,4 +80,10 @@ KeyboardInputManager.prototype.listen = function () {
 KeyboardInputManager.prototype.restart = function (event) {
   event.preventDefault();
   this.emit("restart");
+};
+
+
+KeyboardInputManager.prototype.keepPlaying = function (event) {
+  event.preventDefault();
+  this.emit("keepPlaying");
 };
