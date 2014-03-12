@@ -283,8 +283,11 @@ hr {
       @for $y from 1 through $grid-row-cells {
         &.tile-position-#{$x}-#{$y} {
           position: absolute;
-          left: round(($tile-size + $grid-spacing) * ($x - 1));
-          top: round(($tile-size + $grid-spacing) * ($y - 1));
+          $xPos: round(($tile-size + $grid-spacing) * ($x - 1));
+          $yPos: round(($tile-size + $grid-spacing) * ($y - 1));
+          -webkit-transform: translate($xPos, $yPos);
+          -moz-transform: translate($xPos, $yPos);
+          transform: translate($xPos, $yPos);
         }
       }
     }
@@ -295,17 +298,19 @@ hr {
 @include game-field;
 
 .tile {
-  border-radius: $tile-border-radius;
-
-  background: $tile-color;
-  text-align: center;
-  font-weight: bold;
-  z-index: 10;
-
-  font-size: 55px;
-
   @include transition($transition-speed ease-in-out);
-  @include transition-property(top, left);
+  @include transition-property(all, left);
+  div {
+    border-radius: $tile-border-radius;
+
+    background: $tile-color;
+    text-align: center;
+    font-weight: bold;
+    z-index: 10;
+
+    font-size: 55px;
+    height: 106.25px;
+  }
 
   $base: 2;
   $exponent: 1;
@@ -328,7 +333,7 @@ hr {
   @while $exponent <= $limit {
     $power: pow($base, $exponent);
 
-    &.tile-#{$power} {
+    &.tile-#{$power} div {
       // Calculate base background color
       $gold-percent: ($exponent - 1) / ($limit - 1) * 100;
       $mixed-background: mix($tile-gold-color, $tile-color, $gold-percent);
@@ -392,7 +397,7 @@ hr {
   }
 }
 
-.tile-new {
+.tile.tile-new div {
   @include animation(appear 200ms ease $transition-speed);
   @include animation-fill-mode(both);
 }
@@ -414,7 +419,7 @@ hr {
   }
 }
 
-.tile-merged {
+.tile.tile-merged div  {
   z-index: 20;
   @include animation(pop 200ms ease $transition-speed);
   @include animation-fill-mode(both);

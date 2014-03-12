@@ -43,12 +43,16 @@ HTMLActuator.prototype.addTile = function (tile) {
   var self = this;
 
   var element   = document.createElement("div");
+  var parent   = document.createElement("div");
   var position  = tile.previousPosition || { x: tile.x, y: tile.y };
   positionClass = this.positionClass(position);
 
+
+  parent.appendChild(element);
+
   // We can't use classlist because it somehow glitches when replacing classes
   var classes = ["tile", "tile-" + tile.value, positionClass];
-  this.applyClasses(element, classes);
+  this.applyClasses(parent, classes);
 
   element.textContent = tile.value;
 
@@ -56,11 +60,11 @@ HTMLActuator.prototype.addTile = function (tile) {
     // Make sure that the tile gets rendered in the previous position first
     window.requestAnimationFrame(function () {
       classes[2] = self.positionClass({ x: tile.x, y: tile.y });
-      self.applyClasses(element, classes); // Update the position
+      self.applyClasses(parent, classes); // Update the position
     });
   } else if (tile.mergedFrom) {
     classes.push("tile-merged");
-    this.applyClasses(element, classes);
+    this.applyClasses(parent, classes);
 
     // Render the tiles that merged
     tile.mergedFrom.forEach(function (merged) {
@@ -68,11 +72,11 @@ HTMLActuator.prototype.addTile = function (tile) {
     });
   } else {
     classes.push("tile-new");
-    this.applyClasses(element, classes);
+    this.applyClasses(parent, classes);
   }
 
   // Put the tile on the board
-  this.tileContainer.appendChild(element);
+  this.tileContainer.appendChild(parent);
 };
 
 HTMLActuator.prototype.applyClasses = function (element, classes) {
