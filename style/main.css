@@ -219,7 +219,8 @@ hr {
 .tile {
   width: 106.25px;
   height: 106.25px;
-  line-height: 116.25px; }
+  line-height: 116.25px;
+  overflow: hidden; }
   .tile.tile-position-1-1 {
     position: absolute;
     -webkit-transform: translate(0px, 0px);
@@ -566,7 +567,8 @@ hr {
   .tile {
     width: 57.5px;
     height: 57.5px;
-    line-height: 67.5px; }
+    line-height: 67.5px;
+    overflow: hidden; }
     .tile.tile-position-1-1 {
       position: absolute;
       -webkit-transform: translate(0px, 0px);

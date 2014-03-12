@@ -277,6 +277,7 @@ hr {
     width: $tile-size;
     height: $tile-size;
     line-height: $tile-size + 10px;
+    overflow: hidden;
 
     // Build position classes
     @for $x from 1 through $grid-row-cells {
